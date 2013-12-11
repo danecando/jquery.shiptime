@@ -14,8 +14,8 @@ var config = {
 
     // This is to make sure we only show transit info if an item is in stock!
     stockSelector  : 'p.availability',  // selector for element that notifies stock status
-    // inStockText    : 'in-stock',        // in stock text  
-    inStockText : true,              // use this if you want to show for all items
+    inStockText    : 'in-stock',        // in stock text  
+    // inStockText : true,              // use this if you want to show for all items
 
     // If you want to estimate delivery dates enter estimated lead time for each state in days
     leadtime: {
