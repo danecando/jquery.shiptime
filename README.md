@@ -11,16 +11,11 @@ To Florida via Fixed Rate Shipping
 ## Requirements 
 Shipping Time makes use of jQuery & Moment.js. Both files are included in the vendor directory. 
 
-#### Include files on your webpage before the closing body tag
+Include files on your webpage before the closing body tag
 ```html
 <script src="vendor/jquery-1.9.1.min.js"></script>
 <script src="vendor/moment.min.js"></script>
 <script src="shipping-time.js"></script>
-```
-
-#### It also includes a shipping-time.css file for basic styling of the output. You can change this to fit your website
-```html
-<link rel="stylesheet" type="text/css" href="shipping-time.css">
 ```
 
 ## Installation 
@@ -30,6 +25,11 @@ Include the following html where you want to display the plugin on your webpage.
     <p id="ship-time"></p>
     <p id="delivery-date"></p>
 </div>
+```
+
+It also includes a shipping-time.css file for basic styling of the output. You can change this to fit your website
+```html
+<link rel="stylesheet" type="text/css" href="shipping-time.css">
 ```
 
 ## Configuration 
