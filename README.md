@@ -3,19 +3,29 @@ shipping-time
 
 Shipping Time is a jQuery plugin that displays the time until the shipping cut off for your eCommerce website. You can also configure it to show estimated delivery dates based on user location.
 
+The output looks like this: 
+Order within 2 hrs 4 mins to ship Today
+Est. Delivery: Thursday, Dec 12th
+To Florida via Fixed Rate Shipping
+
 ## Requirements 
 Shipping Time makes use of jQuery & Moment.js. Both files are included in the vendor directory. 
 
 ### Include files on your webpage before the closing body tag
-```javascript
+```html
 <script src="vendor/jquery-1.9.1.min.js"></script>
 <script src="vendor/moment.min.js"></script>
-<script src="shipping-time.js">
+<script src="shipping-time.js"></script>
+```
+
+### It also includes a shipping-time.css file for basic styling of the output. You can change this to fit your website
+```html
+<link rel="stylesheet" type="text/css" href="shipping-time.css">
 ```
 
 ## Installation 
 Include the following html where you want to display the plugin on your webpage.
-```javascript
+```html
 <div id="shipping-time">
     <p id="ship-time"></p>
     <p id="delivery-date"></p>
