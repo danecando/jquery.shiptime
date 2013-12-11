@@ -7,9 +7,9 @@ Shipping Time is a jQuery plugin that displays the time until the shipping cut o
 Shipping Time makes use of jQuery & Moment.js. Both files are included in the vendor directory. 
 
 ### Include files on your webpage before the closing </body> tag
-` <script src="vendor/jquery-1.9.1.min.js"></script>
+ <pre><script src="vendor/jquery-1.9.1.min.js"></script>
 <script src="vendor/moment.min.js"></script>
-<script src="shipping-time.js">`
+<script src="shipping-time.js"></pre>
 
 ## Installation 
 Include the following html where you want to display the plugin on your webpage.
@@ -39,7 +39,7 @@ Set the name of your featured shipping method
     shipMethodName: 'Fixed Rate Shipping',`
 
 This part targets the element containing your items stock status. Put the selector for jQuery and for inStockText put the text that shows when an item is in stock. ie: In Stock In-stock ect... This will make sure that the plugin only displays for items that are in stock. If you want to just show it for all of your items change the value to true.
-    `// This is to make sure we only show transit info if an item is in stock!
+    // This is to make sure we only show transit info if an item is in stock!
     stockSelector  : 'p.availability',  // selector for element that notifies stock status
     inStockText    : 'in-stock',        // in stock text  
     //inStockText : true,              // use this if you want to show for all items`
