@@ -6,7 +6,7 @@ Shipping Time is a jQuery plugin that displays the time until the shipping cut o
 ## Requirements 
 Shipping Time makes use of jQuery & Moment.js. Both files are included in the vendor directory. 
 
-### Include files on your webpage before the closing </body> tag
+### Include files on your webpage before the closing body tag
 ```javascript
 <script src="vendor/jquery-1.9.1.min.js"></script>
 <script src="vendor/moment.min.js"></script>
