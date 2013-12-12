@@ -113,7 +113,7 @@ jQuery(document).ready(function($) {
 
         $.get("http://ipinfo.io", function(data){;}, "jsonp")
         .then(function(data) {
-            if (data.country == "US") {
+            if (data.country == "US" && data.region != null) {
                 $("#delivery-date").html('<span class="bold">Est Delivery:</span> ' + projectedDeliveryDate(deadline, data.region) + '<br><span class="small-print"> to ' + data.region + ' via ' + config.shipMethodName  + '</span>');
             }
         });
