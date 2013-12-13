@@ -73,7 +73,7 @@ var config = {
 };
 
 function isWeekday(moment) {
-    return (moment.day() !== 0 && moment.day() !== 7) ? true : false;
+    return (moment.day() !== 0 && moment.day() !== 6) ? true : false;
 }
 
 function shipDay(deadline) {
@@ -101,7 +101,12 @@ function timeUntilDeadline(deadline) {
 }
 
 function projectedDeliveryDate(deliveryTime, state) {
-    return deliveryTime.add('d', config.leadtime[state]).format("dddd, MMM Do");
+    var estimateDay = deliveryTime.add('d', config.leadtime[state]).format("dddd, MMM Do");
+    if (!isWeekday(estimateDay)) {
+        return (estimateDay.day() === 0) ? estimateDay.add('h', 24) : estimateDay.add('h', 48);
+    } else {
+        return estimateDay;
+    }
 }
 
 jQuery(document).ready(function($) {
@@ -111,10 +116,10 @@ jQuery(document).ready(function($) {
 
         $("#ship-time").html('<span class="bold">Order</span> within <span class="green">' + timeLeft.hours + ' hrs ' + timeLeft.minutes + ' mins</span> to ship <span class="bold">' + shipDay(deadline) + '</span>');
 
-        $.get("http://ipinfo.io", function(data){;}, "jsonp")
+        $.get("http://getgeoip.net/json/", function(data){;}, "jsonp")
         .then(function(data) {
-            if (data.country == "US" && data.region != null) {
-                $("#delivery-date").html('<span class="bold">Est Delivery:</span> ' + projectedDeliveryDate(deadline, data.region) + '<br><span class="small-print"> to ' + data.region + ' via ' + config.shipMethodName  + '</span>');
+            if (data.country_code == "US" && data.region_name !== null) {
+                $("#delivery-date").html('<span class="bold">Est Delivery:</span> ' + projectedDeliveryDate(deadline, data.region_name) + '<br><span class="small-print"> to ' + data.region_name + ' via ' + config.shipMethodName  + '</span>');
             }
         });
     }
