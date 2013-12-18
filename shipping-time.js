@@ -17,6 +17,9 @@ var config = {
     inStockText    : 'in-stock',        // in stock text  
     // inStockText : true,              // use this if you want to show for all items
 
+    // Add dates that will be exluding from shipping and delivery (comma separated)
+    noShipping: '12/24,12/25',
+
     // If you want to estimate delivery dates enter estimated lead time for each state in days
     leadtime: {
         'Alabama': 2,
@@ -82,6 +85,9 @@ function shipDay(deadline) {
 
 function shippingDeadline(hour, minute) {
     var deadline = moment().zone(config.timezone).hour(hour).minute(minute).second(0);
+    while (isExcluded(deadline)) {
+        deadline.add('h', 24);
+    }
     if (moment().zone(config.timezone).hour() >= deadline.hour() && isWeekday(moment().zone(config.timezone))) {
         deadline.add('h', 24);
     }
@@ -102,6 +108,9 @@ function timeUntilDeadline(deadline) {
 
 function projectedDeliveryDate(deliveryTime, state) {
     var estimateDay = deliveryTime.add('d', config.leadtime[state]).format("dddd, MMM Do");
+    while (isExcluded(estimateDay)) {
+        estimateDay.add('h', 24);
+    }
     if (!isWeekday(estimateDay)) {
         return (estimateDay.day() === 0) ? estimateDay.add('h', 24) : estimateDay.add('h', 48);
     } else {
