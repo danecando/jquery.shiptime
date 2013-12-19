@@ -14,11 +14,11 @@ var config = {
 
     // This is to make sure we only show transit info if an item is in stock!
     stockSelector  : 'p.availability',  // selector for element that notifies stock status
-    inStockText    : 'in-stock',        // in stock text  
-    // inStockText : true,              // use this if you want to show for all items
+    // inStockText    : 'in-stock',        // in stock text  
+    inStockText : true,              // use this if you want to show for all items
 
     // Add dates that will be exluding from shipping and delivery (comma separated)
-    noShipping: '12/24,12/25',
+    noShipping: '12/24, 12/25',
 
     // If you want to estimate delivery dates enter estimated lead time for each state in days
     leadtime: {
@@ -79,6 +79,16 @@ function isWeekday(moment) {
     return (moment.day() !== 0 && moment.day() !== 6) ? true : false;
 }
 
+function isExcluded(moment) {
+    var dates = config.noShipping.split(', ');
+    for (var i = 0; i < dates.length; i++) {
+        if (moment.zone(config.timezone).format("M/D") == dates[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function shipDay(deadline) {
     return (moment().zone(config.timezone).isSame(deadline, "d")) ? "Today" : deadline.format("dddd");
 }
@@ -107,14 +117,14 @@ function timeUntilDeadline(deadline) {
 }
 
 function projectedDeliveryDate(deliveryTime, state) {
-    var estimateDay = deliveryTime.add('d', config.leadtime[state]).format("dddd, MMM Do");
+    var estimateDay = deliveryTime.add('d', config.leadtime[state]);
     while (isExcluded(estimateDay)) {
         estimateDay.add('h', 24);
     }
     if (!isWeekday(estimateDay)) {
-        return (estimateDay.day() === 0) ? estimateDay.add('h', 24) : estimateDay.add('h', 48);
+        return (estimateDay.day() === 0) ? estimateDay.add('h', 24).format("dddd, MMM Do") : estimateDay.add('h', 48).format("dddd, MMM Do");
     } else {
-        return estimateDay;
+        return estimateDay.format("dddd, MMM Do");
     }
 }
 
@@ -125,11 +135,13 @@ jQuery(document).ready(function($) {
 
         $("#ship-time").html('<span class="bold">Order</span> within <span class="green">' + timeLeft.hours + ' hrs ' + timeLeft.minutes + ' mins</span> to ship <span class="bold">' + shipDay(deadline) + '</span>');
 
-        $.get("http://getgeoip.net/json/", function(data){;}, "jsonp")
-        .then(function(data) {
-            if (data.country_code == "US" && data.region_name !== null) {
-                $("#delivery-date").html('<span class="bold">Est Delivery:</span> ' + projectedDeliveryDate(deadline, data.region_name) + '<br><span class="small-print"> to ' + data.region_name + ' via ' + config.shipMethodName  + '</span>');
-            }
-        });
+        if (config.leadtime) {
+            $.get("http://freegeoip.net/json/", function(data){;}, "jsonp")
+            .then(function(data) {
+                if (data.country_code == "US" && data.region_name !== null) {
+                    $("#delivery-date").html('<span class="bold">Est Delivery:</span> ' + projectedDeliveryDate(deadline, data.region_name) + '<br><span class="small-print"> to ' + data.region_name + ' via ' + config.shipMethodName  + '</span>');
+                }
+            });
+        }
     }
 });
