@@ -117,15 +117,14 @@ function timeUntilDeadline(deadline) {
 }
 
 function projectedDeliveryDate(deliveryTime, state) {
-    var estimateDay = deliveryTime.add('d', config.leadtime[state]);
-    while (isExcluded(estimateDay)) {
-        estimateDay.add('h', 24);
+    var i = 0;
+    while (i < config.leadtime[state]) {
+        deliveryTime.add('h', 24);
+        if (isWeekday(deliveryTime) && !isExcluded(deliveryTime)) {
+            i++;
+        }
     }
-    if (!isWeekday(estimateDay)) {
-        return (estimateDay.day() === 0) ? estimateDay.add('h', 24).format("dddd, MMM Do") : estimateDay.add('h', 48).format("dddd, MMM Do");
-    } else {
-        return estimateDay.format("dddd, MMM Do");
-    }
+    return deliveryTime.format("dddd, MMM Do");
 }
 
 jQuery(document).ready(function($) {
