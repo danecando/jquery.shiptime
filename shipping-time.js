@@ -17,7 +17,10 @@ var config = {
     // inStockText    : 'in-stock',        // in stock text  
     inStockText : true,              // use this if you want to show for all items
 
-    // Add dates that will be exluding from shipping and delivery (comma separated)
+    // Does your shipping method have Saturday delivery?
+    saturdayDelivery: false,
+
+    // Add dates that will be exluded from shipping and delivery (comma separated)
     noShipping: '12/24, 12/25',
 
     // If you want to estimate delivery dates enter estimated lead time for each state in days
