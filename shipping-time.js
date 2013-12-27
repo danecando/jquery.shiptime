@@ -92,23 +92,32 @@ function isExcluded(moment) {
     return false;
 }
 
-function shipDay(deadline) {
-    return (moment().zone(config.timezone).isSame(deadline, "d")) ? "Today" : deadline.format("dddd");
+function isDeliveryDay(moment) {
+    if (isExcluded(moment) || moment.day() === 0) {
+        return false;
+    }
+    if (moment.day() === 6 && config.saturdayDelivery === false) {
+        return false;
+    }
+    return true;
+}
+
+function isShipDay(moment) {
+    if (isExcluded(moment) || !isWeekday(moment)) {
+        return false;
+    }
+    return true;
 }
 
 function shippingDeadline(hour, minute) {
     var deadline = moment().zone(config.timezone).hour(hour).minute(minute).second(0);
-    while (isExcluded(deadline)) {
-        deadline.add('h', 24);
-    }
     if (moment().zone(config.timezone).hour() >= deadline.hour() && isWeekday(moment().zone(config.timezone))) {
         deadline.add('h', 24);
     }
-    if (!isWeekday(deadline)) {
-        return (deadline.day() === 0) ? deadline.add('h', 24) : deadline.add('h', 48);
-    } else {
-        return deadline;
+    while (!isShipDay(deadline)) {
+        deadline.add('h', 24);
     }
+    return deadline;
 }
 
 function timeUntilDeadline(deadline) {
@@ -119,11 +128,15 @@ function timeUntilDeadline(deadline) {
     return { 'hours': hoursTill, 'minutes': minutesTill };
 }
 
-function projectedDeliveryDate(deliveryTime, state) {
+function shipDay(deadline) {
+    return (moment().zone(config.timezone).isSame(deadline, "d")) ? "Today" : deadline.format("dddd");
+}
+
+function estDeliveryDate(deliveryTime, state) {
     var i = 0;
     while (i < config.leadtime[state]) {
         deliveryTime.add('h', 24);
-        if (isWeekday(deliveryTime) && !isExcluded(deliveryTime)) {
+        if (isDeliveryDay(deliveryTime)) {
             i++;
         }
     }
@@ -140,8 +153,8 @@ jQuery(document).ready(function($) {
         if (config.leadtime) {
             $.get("http://freegeoip.net/json/", function(data){;}, "jsonp")
             .then(function(data) {
-                if (data.country_code == "US" && data.region_name !== null) {
-                    $("#delivery-date").html('<span class="bold">Est Delivery:</span> ' + projectedDeliveryDate(deadline, data.region_name) + '<br><span class="small-print"> to ' + data.region_name + ' via ' + config.shipMethodName  + '</span>');
+                if (data.country_code == "US" && data.region_name !== null && data.region_name != '') {
+                    $("#delivery-date").html('<span class="bold">Est Delivery:</span> ' + estDeliveryDate(deadline, data.region_name) + '<br><span class="small-print"> to ' + data.region_name + ' via ' + config.shipMethodName  + '</span>');
                 }
             });
         }
