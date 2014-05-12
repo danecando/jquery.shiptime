@@ -73,13 +73,6 @@ leadtime: {
     'Arizona': 5,
 ```
 
-
-## Support
-Contact danecando@gmail.com or @danecando on Twitter for support.
-
 ## Credits
 jQuery - http://jquery.com
 Moment.js - http://momentjs.com
-
-## Other Info
-I am a novice programmer trying to learn and improve. I made this as a project for eCommerce website I manage. I plan to improve the code as I work on programming skills. Please feel free to reach out with tips or contribute to this project. Thanks, Dane.
