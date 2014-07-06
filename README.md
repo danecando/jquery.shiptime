@@ -17,7 +17,7 @@ Include files on your webpage before the closing body tag
 ```html
 <script src="vendor/jquery-1.9.1.min.js"></script>
 <script src="vendor/moment.min.js"></script>
-<script src="shipping-time.js"></script>
+<script src="jquery.shiptime.js"></script>
 ```
 
 ## Installation 
@@ -35,7 +35,7 @@ It also includes a shipping-time.css file for basic styling of the output. You c
 ```
 
 ## Configuration 
-Configuration is included at the top of the shipping-time.js file. It is commented to make it easier to setup. 
+Configuration is included at the top of the jquery.shiptime.js file. It is commented to make it easier to setup. 
 
 Set the UTC offset for your location and the time of your shipping cut off in 24 hour format
 ```javascript
