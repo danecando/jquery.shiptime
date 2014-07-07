@@ -29,9 +29,9 @@ Attach the plugin to the element that you want to output the information
 
 Call the plugin in your javascript file after the dom has finished loading
 ```javascript
-    jQuery(function($) {
-       $('#shipping-time').shipTime();
-    });
+jQuery(function($) {
+   $('#shipping-time').shipTime();
+});
 ```
 
 
