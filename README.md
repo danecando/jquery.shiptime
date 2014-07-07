@@ -1,9 +1,9 @@
 shipping-time
 =============
 
-testing
+Shipping Time is a jQuery plugin that displays the time until the shipping cut off for your eCommerce website. You can also configure it to show estimated delivery dates based on user location.
 
-Shipping Time is a jQuery application that displays the time until the shipping cut off for your eCommerce website. You can also configure it to show estimated delivery dates based on user location.
+This plugin can help increase conversion rates on your store by increasing the urgency of placing an order within a certain amount of time.
 
 The output looks like this: 
 Order within 2 hrs 4 mins to ship Today
@@ -21,21 +21,40 @@ Include files on your webpage before the closing body tag
 ```
 
 ## Installation 
-Include the following html where you want to display the plugin on your webpage.
-```html
+Attach the plugin to the element that you want to output the information
+```html <!-- an html element !-->
 <div id="shipping-time">
-    <p id="ship-time"></p>
-    <p id="delivery-date"></p>
 </div>
 ```
 
-It also includes a shipping-time.css file for basic styling of the output. You can change this to fit your website
+Call the plugin in your javascript file after the dom has finished loading
+```javascript 
+    jQuery(function($) {
+       $('#shipping-time').shipTime();
+    });
+```
+
+**Take a look at the example directory if you're having any trouble.** 
+
+
+Also feel free to use the shipping-time.css file in the example directory for basic styling
 ```html
 <link rel="stylesheet" type="text/css" href="shipping-time.css">
 ```
 
 ## Configuration 
 Configuration is included at the top of the jquery.shiptime.js file. It is commented to make it easier to setup. 
+
+You can override any of these settings when your call the plugin like so:
+```javascript
+$('#shipping-time').shipTime({
+    timezone: '-0400',
+    deadline: {
+        hour: 10,
+        minute: 0
+    }
+});
+```
 
 Set the UTC offset for your location and the time of your shipping cut off in 24 hour format
 ```javascript
@@ -56,7 +75,7 @@ Set the name of your featured shipping method
 ```javascript
 // Name of estimated shipping method
 shipMethodName: 'Fixed Rate Shipping',
-`````
+```
 
 This part targets the element containing your items stock status. Put the selector for jQuery and for inStockText put the text that shows when an item is in stock. ie: In Stock In-stock ect... This will make sure that the plugin only displays for items that are in stock. If you want to just show it for all of your items change the value to true.
 ```javascript
