@@ -166,7 +166,7 @@
             var deadline = this.shippingDeadline(this.options.deadline.hour, this.options.deadline.minute);
             var timeLeft = this.timeUntilDeadline(deadline);
 
-           $(this.element).append('<span class="bold">Order</span> within <span class="green">' + timeLeft.hours + ' hrs ' + timeLeft.minutes + ' mins</span> to ship <span class="bold">' + this.shipDay(deadline) + '</span>');
+           $(this.element).append('<span class="order">Order</span> within <span class="time-left">' + timeLeft.hours + ' hrs ' + timeLeft.minutes + ' mins</span> to ship <span class="ship-day">' + this.shipDay(deadline) + '</span>');
 
             if (this.options.leadtime) {
                 $.get("http://getgeoip.net/json/", function (data) {
@@ -174,7 +174,7 @@
                 }, "jsonp")
                 .then( function(data) {
                     if (data.country_code == "US" && data.region_name !== null) {
-                        $(plugin.element).append('<span class="bold">Est Delivery:</span> ' + plugin.projectedDeliveryDate(deadline, data.region_name) + '<br><span class="small-print"> to ' + data.region_name + ' via ' + plugin.options.shipMethodName + '</span>');
+                        $(plugin.element).append('<span class="est-delivery">Est Delivery:</span> ' + plugin.projectedDeliveryDate(deadline, data.region_name) + '<br><span class="deliver-time"> to ' + data.region_name + ' via ' + plugin.options.shipMethodName + '</span>');
                     }
                 });
             }
