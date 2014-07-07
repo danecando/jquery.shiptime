@@ -21,16 +21,18 @@ Include files on your webpage before the closing body tag
 
 ## Installation 
 Attach the plugin to the element that you want to output the information
-```html <!-- an html element !-->
+```html 
+<!-- an html element !-->
 <div id="shipping-time">
 </div>
 ```
 
 Call the plugin in your javascript file after the dom has finished loading
-
+```javascript
     jQuery(function($) {
        $('#shipping-time').shipTime();
     });
+```
 
 
 *Take a look at the example included in the example directory if you're having any trouble.* 
