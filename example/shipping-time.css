@@ -4,20 +4,16 @@
     font-size: 16px;
 }
 
-#shipping-time p {
-    margin: 0;
-}
-
-#shipping-time .bold {
+#shipping-time .est-delivery, #shipping-time .order, #shipping-time .ship-day {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
-#shipping-time .green {
+#shipping-time .time-left {
     font-weight: bold;
     color: #54a544;
 }
 
-#shipping-time .small-print {
+#shipping-time .deliver-time {
     font-size: 14px;
 }
