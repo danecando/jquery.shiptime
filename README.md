@@ -27,11 +27,11 @@ Attach the plugin to the element that you want to output the information
 ```
 
 Call the plugin in your javascript file after the dom has finished loading
-```javascript 
+
     jQuery(function($) {
        $('#shipping-time').shipTime();
     });
-```
+
 
 *Take a look at the example included in the example directory if you're having any trouble.* 
 
@@ -57,17 +57,19 @@ $('#shipping-time').shipTime({
 
 ### Time Settings
 Set the UTC offset for your location and the time of your shipping cut off in 24 hour format
-    var config = {
-    
-        // UTC timezone offset for your stores location
-        timezone: '-0500',
-        
-        // Enter your shipping cutoff deadline in 24 hour format
-        deadline: {
-            hour: 16,
-            minute: 0
-    },
 
+```javascript
+var config = {
+  
+    // UTC timezone offset for your stores location
+    timezone: '-0500',
+    
+    // Enter your shipping cutoff deadline in 24 hour format
+    deadline: {
+        hour: 16,
+        minute: 0
+    },
+```
 
 ### Shipping Method Name
 Set the name of your featured shipping method 
@@ -108,5 +110,5 @@ The output looks like this:
 ```
 
 ## Dependencies 
-jQuery - http://jquery.com
-Moment.js - http://momentjs.com
+* jQuery - http://jquery.com
+* Moment.js - http://momentjs.com
