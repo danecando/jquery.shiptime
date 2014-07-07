@@ -3,12 +3,11 @@ shipping-time
 
 Shipping Time is a jQuery plugin that displays the time until the shipping cut off for your eCommerce website. You can also configure it to show estimated delivery dates based on user location.
 
-This plugin can help increase conversion rates on your store by increasing the urgency of placing an order within a certain amount of time.
+This plugin can help increase conversion rates on your store by increasing impulse buys to get an order in for same day shipping.
 
 The output looks like this: 
-Order within 2 hrs 4 mins to ship Today
-Est. Delivery: Thursday, Dec 12th
-To Florida via Fixed Rate Shipping
+![Shipping Time Output](shipping_time-screenshot.jpg)
+
 
 ## Requirements 
 Shipping Time makes use of jQuery & Moment.js. Both files are included in the vendor directory. 
@@ -34,7 +33,7 @@ Call the plugin in your javascript file after the dom has finished loading
     });
 ```
 
-**Take a look at the example directory if you're having any trouble.** 
+*Take a look at the example included in the example directory if you're having any trouble.* 
 
 
 Also feel free to use the shipping-time.css file in the example directory for basic styling
@@ -56,27 +55,28 @@ $('#shipping-time').shipTime({
 });
 ```
 
+### Time Settings
 Set the UTC offset for your location and the time of your shipping cut off in 24 hour format
-```javascript
-var  config = {
-
-// UTC timezone offset for your stores location
-timezone: '-0500',
-
-// Enter your shipping cutoff deadline in 24 hour format
-deadline: {
-    hour: 16,
-    minute: 0
-},
-```
+    var config = {
+    
+        // UTC timezone offset for your stores location
+        timezone: '-0500',
+        
+        // Enter your shipping cutoff deadline in 24 hour format
+        deadline: {
+            hour: 16,
+            minute: 0
+    },
 
 
+### Shipping Method Name
 Set the name of your featured shipping method 
 ```javascript
 // Name of estimated shipping method
 shipMethodName: 'Fixed Rate Shipping',
 ```
 
+### Stock Status
 This part targets the element containing your items stock status. Put the selector for jQuery and for inStockText put the text that shows when an item is in stock. ie: In Stock In-stock ect... This will make sure that the plugin only displays for items that are in stock. If you want to just show it for all of your items change the value to true.
 ```javascript
 // This is to make sure we only show transit info if an item is in stock!
@@ -85,6 +85,7 @@ inStockText    : 'in-stock',        // in stock text
 //inStockText : true,              // use this if you want to show for all items
 ```
 
+### Delivery Lead Times
 If you're going to display estimated delivery dates put in the lead times for each state based on your shipping method. (UPS & Fedex generate maps with estimated times based on your location) The plugin detects the users location based on their ip address and delivers an estimated date based on your settings.
 ```javascript
 // If you want to estimate delivery dates enter estimated lead time for each state in days
@@ -94,6 +95,18 @@ leadtime: {
     'Arizona': 5,
 ```
 
-## Credits
+### Styling
+There are some classes in the output to allow you to add some custom styling. 
+
+The output looks like this:
+
+```html
+<div id="shipping-time">
+<span class="order">Order</span> within <span class="time-left">21 hrs 38 mins</span> to ship <span class="ship-day">Tuesday</span></p>
+<span class="est-delivery">Est. Delivery:</span> Wednesday, Jul 9th<br><span class="deliver-time">To Florida via FedEx Ground Shipping</span></p>
+</div>
+```
+
+## Dependencies 
 jQuery - http://jquery.com
 Moment.js - http://momentjs.com
